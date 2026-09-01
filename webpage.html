@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rhythm & Flow Dance Studio</title>
+  <style>
+    /* Global Resets & Fonts */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0f0f12;
+      color: #f1f1f1;
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    header {
+      background: rgba(15, 15, 18, 0.95);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #222;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ff3366;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ff3366;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.65), rgba(15,15,18,1)), 
+                  url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      background-color: #ff3366;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background-color: #e02855;
+      transform: translateY(-3px);
+    }
+
+    /* General Layout Sections */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #ff3366;
+      margin: 0.5rem auto 0;
+    }
+
+    /* Dance Styles Cards */
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .class-card {
+      background-color: #1a1a22;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #2a2a35;
+      transition: transform 0.3s ease;
+    }
+
+    .class-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .class-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .class-card-content {
+      padding: 1.5rem;
+    }
+
+    .class-card h3 {
+      color: #ff3366;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Schedule Table */
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #1a1a22;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .schedule-table th, .schedule-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #2a2a35;
+    }
+
+    .schedule-table th {
+      background-color: #ff3366;
+      color: white;
+    }
+
+    .schedule-table tr:hover {
+      background-color: #22222d;
+    }
+
+    /* Contact & Registration Form */
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #1a1a22;
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid #2a2a35;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #0f0f12;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus, 
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff3366;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #08080a;
+      color: #777;
+      border-top: 1px solid #1a1a22;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; /* Can be toggled with JS */
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .schedule-table {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <div class="logo">Rhythm & Flow</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#join">Join Class</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Unleash Your Inner Rhythm</h1>
+      <p>From absolute beginners to advanced performers. Express yourself, build confidence, and master the art of movement.</p>
+      <a href="#join" class="btn-primary">Claim Your Free First Class</a>
+    </div>
+  </section>
+
+  <!-- Featured Classes -->
+  <section id="classes">
+    <h2 class="section-title">Our Dance Styles</h2>
+    <div class="classes-grid">
+      
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=600&q=80" alt="Hip Hop Dance">
+        <div class="class-card-content">
+          <h3>Hip-Hop & Groove</h3>
+          <p>Learn high-energy isolation, bouncing, and freestyle routines set to the latest beats. Open to all skill levels.</p>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?auto=format&fit=crop&w=600&q=80" alt="Contemporary Dance">
+        <div class="class-card-content">
+          <h3>Contemporary & Flow</h3>
+          <p>Combine fluid movements, floorwork, and storytelling to express emotions through graceful physical technique.</p>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=600&q=80" alt="Salsa Dance">
+        <div class="class-card-content">
+          <h3>Salsa & Latin Beats</h3>
+          <p>Master fast footwork, partner connections, and rhythmic hip movements in a fun, high-energy environment.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Class Schedule -->
+  <section id="schedule">
+    <h2 class="section-title">Weekly Schedule</h2>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Class Name</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday</td>
+          <td>6:00 PM - 7:30 PM</td>
+          <td>Beginner Hip-Hop</td>
+          <td>Level 1</td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td>5:00 PM - 6:30 PM</td>
+          <td>Contemporary Flow</td>
+          <td>All Levels</td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td>7:00 PM - 8:30 PM</td>
+          <td>Salsa & Social Dance</td>
+          <td>Intermediate</td>
+        </tr>
+        <tr>
+          <td>Saturday</td>
+          <td>10:00 AM - 11:30 AM</td>
+          <td>Street Jazz & Choreography</td>
+          <td>Level 2</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Registration Form -->
+  <section id="join">
+    <h2 class="section-title">Register For A Class</h2>
+    <div class="contact-container">
+      <form action="#" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="class-select">Select Preferred Style</label>
+          <select id="class-select">
+            <option value="hiphop">Hip-Hop & Groove</option>
+            <option value="contemporary">Contemporary & Flow</option>
+            <option value="salsa">Salsa & Latin Beats</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%;">Book Free Trial</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Rhythm & Flow Dance Studio. All rights reserved.</p>
+  </footer>
+  
+
+</body>
+</html>

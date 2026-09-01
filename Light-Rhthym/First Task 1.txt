@@ -1,0 +1,8 @@
+Here are the main features for the Light-Rhythm System for USER 1 and USER 2
+
+1. USER 1 Registration USER 1 can create a profile and input their preferred shift hours and waking time.
+2. USER 2 Registration USER 2 can register their account and set their own custom work schedule.
+3. Smart Task Scheduler The system automatically assigns complex tasks during high-energy peak hours for both users.
+4. Circadian Light Controller The system suggests or adjusts light color and brightness based on the current time of day.
+5. Energy Dip Alert The system sends a notification when a user enters a low-energy period and suggests low-stress tasks.
+6. Weekly Rhythm Dashboard Both users can view a simple summary chart showing their energy trends and task progress over the week.
