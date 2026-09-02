@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Light Rhythm Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div>
+                <h2>LIGHT</h2>
+                <small>RHYTHM</small>
+            </div>
+        </div>
+
+        <div class="side-label">CONTROL</div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-section="dashboard">
+                <span class="nav-icon">◉</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-section="schedules">
+                <span class="nav-icon">◷</span>
+                <span>Schedules</span>
+            </button>
+
+            <button class="nav-item" data-section="brightness">
+                <span class="nav-icon">☼</span>
+                <span>Brightness</span>
+            </button>
+
+            <button class="nav-item" data-section="routines">
+                <span class="nav-icon">◈</span>
+                <span>Routines</span>
+            </button>
+
+            <button class="nav-item" data-section="storage">
+                <span class="nav-icon">▣</span>
+                <span>Storage</span>
+            </button>
+
+            <button class="nav-item" data-section="history">
+                <span class="nav-icon">↺</span>
+                <span>History</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+                <div class="status-dot"></div>
+
+                <div>
+                    <strong>System Ready</strong>
+                    <small>Light rhythm active</small>
+                </div>
+            </div>
+
+            <div class="version">
+                LIGHT RHYTHM / v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MOBILE HEADER -->
+    <header class="mobile-header">
+
+        <div class="brand">
+            <div class="brand-mark">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div>
+                <h2>LIGHT</h2>
+                <small>RHYTHM</small>
+            </div>
+        </div>
+
+        <button id="menuButton" class="menu-button">☰</button>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP HEADER -->
+        <header class="top-header">
+
+            <div class="breadcrumb">
+                LIGHT RHYTHM <span>/</span>
+                <strong id="breadcrumbText">DASHBOARD</strong>
+            </div>
+
+            <div class="header-right">
+
+                <div class="live-time">
+                    <span class="live-dot"></span>
+                    <span id="currentTime">00:00:00</span>
+                </div>
+
+                <div class="profile">
+                    <div class="profile-avatar">U</div>
+
+                    <div class="profile-info">
+                        <strong>User</strong>
+                        <span>Light Manager</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page active-page">
+
+            <div class="hero">
+
+                <div>
+                    <span class="eyebrow">CURRENT LIGHT STATE</span>
+
+                    <h1>
+                        Good
+                        <span id="greeting">day</span>.
+                    </h1>
+
+                    <p>
+                        Your light rhythm is following today's schedule.
+                    </p>
+                </div>
+
+                <div class="hero-time">
+
+                    <span id="bigTime">12:00</span>
+
+                    <div>
+                        <span id="dayPeriod">DAY</span>
+                        <small id="todayDate">Wednesday, September 2</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENT LIGHT CARD -->
+
+            <div class="light-control-card">
+
+                <div class="light-card-top">
+
+                    <div>
+                        <span class="eyebrow">CURRENT MODE</span>
+
+                        <h2 id="currentMode">
+                            Day
+                        </h2>
+
+                        <p id="currentDescription">
+                            Bright daytime lighting
+                        </p>
+                    </div>
+
+                    <div class="light-symbol" id="lightSymbol">
+                        ☀
+                    </div>
+
+                </div>
+
+
+                <div class="brightness-display">
+
+                    <div class="brightness-number">
+                        <span id="brightnessValue">75</span>
+                        <small>%</small>
+                    </div>
+
+                    <div class="brightness-bar">
+                        <div id="brightnessFill"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="light-meta">
+
+                    <div>
+                        <span>MODE</span>
+                        <strong id="modeMeta">DAY</strong>
+                    </div>
+
+                    <div>
+                        <span>BRIGHTNESS</span>
+                        <strong><span id="brightnessMeta">75</span>%</strong>
+                    </div>
+
+                    <div>
+                        <span>SCHEDULE</span>
+                        <strong>ACTIVE</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY CARDS -->
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <div class="summary-icon sun">☼</div>
+
+                    <div>
+                        <span>Morning</span>
+                        <strong>60%</strong>
+                        <small>06:00 — 10:00</small>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon day">◉</div>
+
+                    <div>
+                        <span>Day</span>
+                        <strong>75%</strong>
+                        <small>10:00 — 18:00</small>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon night">☾</div>
+
+                    <div>
+                        <span>Night</span>
+                        <strong>25%</strong>
+                        <small>18:00 — 22:00</small>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon history">↺</div>
+
+                    <div>
+                        <span>History</span>
+                        <strong id="historyCount">06</strong>
+                        <small>Recorded changes</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RHYTHM GRAPH -->
+
+            <div class="panel rhythm-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="eyebrow">TODAY'S RHYTHM</span>
+                        <h2>Light throughout the day</h2>
+                    </div>
+
+                    <span class="live-badge">
+                        ● LIVE
+                    </span>
+
+                </div>
+
+
+                <div class="rhythm-chart">
+
+                    <div class="chart-y">
+                        <span>100%</span>
+                        <span>75%</span>
+                        <span>50%</span>
+                        <span>25%</span>
+                        <span>0%</span>
+                    </div>
+
+                    <div class="chart-area">
+
+                        <div class="grid-line l1"></div>
+                        <div class="grid-line l2"></div>
+                        <div class="grid-line l3"></div>
+                        <div class="grid-line l4"></div>
+
+                        <svg
+                            class="curve"
+                            viewBox="0 0 1000 300"
+                            preserveAspectRatio="none">
+
+                            <defs>
+
+                                <linearGradient
+                                    id="curveGradient"
+                                    x1="0%"
+                                    y1="0%"
+                                    x2="100%"
+                                    y2="0%">
+
+                                    <stop offset="0%" />
+                                    <stop offset="50%" />
+                                    <stop offset="100%" />
+
+                                </linearGradient>
+
+                                <linearGradient
+                                    id="areaGradient"
+                                    x1="0%"
+                                    y1="0%"
+                                    x2="0%"
+                                    y2="100%">
+
+                                    <stop offset="0%" />
+                                    <stop offset="100%" />
+
+                                </linearGradient>
+
+                            </defs>
+
+                            <path
+                                class="area"
+                                d="M0 270
+                                   C80 260 130 220 200 180
+                                   C300 100 370 70 470 70
+                                   C580 70 650 90 720 130
+                                   C800 180 850 220 1000 270
+                                   L1000 300
+                                   L0 300 Z"/>
+
+                            <path
+                                class="line"
+                                d="M0 270
+                                   C80 260 130 220 200 180
+                                   C300 100 370 70 470 70
+                                   C580 70 650 90 720 130
+                                   C800 180 850 220 1000 270"/>
+
+                        </svg>
+
+                        <div class="current-position" id="currentPosition">
+                            <div class="position-line"></div>
+                            <div class="position-dot"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="chart-x">
+                        <span>00</span>
+                        <span>04</span>
+                        <span>08</span>
+                        <span>12</span>
+                        <span>16</span>
+                        <span>20</span>
+                        <span>24</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOWER GRID -->
+
+            <div class="two-column">
+
+                <!-- NEXT SCHEDULE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="eyebrow">UP NEXT</span>
+                            <h2>Today's schedule</h2>
+                        </div>
+
+                        <button
+                            class="text-button"
+                            data-section-link="schedules">
+                            View all →
+                        </button>
+
+                    </div>
+
+
+                    <div class="schedule-list">
+
+                        <div class="schedule-row completed">
+                            <div class="schedule-time">
+                                06:00
+                            </div>
+
+                            <div class="schedule-marker">
+                                <span></span>
+                            </div>
+
+                            <div class="schedule-info">
+                                <strong>Morning</strong>
+                                <small>Light increases</small>
+                            </div>
+
+                            <div class="schedule-value">
+                                60%
+                            </div>
+                        </div>
+
+
+                        <div class="schedule-row active">
+
+                            <div class="schedule-time">
+                                10:00
+                            </div>
+
+                            <div class="schedule-marker">
+                                <span></span>
+                            </div>
+
+                            <div class="schedule-info">
+                                <strong>Day</strong>
+                                <small>Bright daytime</small>
+                            </div>
+
+                            <div class="schedule-value">
+                                75%
+                            </div>
+
+                        </div>
+
+
+                        <div class="schedule-row">
+
+                            <div class="schedule-time">
+                                18:00
+                            </div>
+
+                            <div class="schedule-marker">
+                                <span></span>
+                            </div>
+
+                            <div class="schedule-info">
+                                <strong>Night</strong>
+                                <small>Light decreases</small>
+                            </div>
+
+                            <div class="schedule-value">
+                                25%
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVITY -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="eyebrow">RECENT ACTIVITY</span>
+                            <h2>Light changes</h2>
+                        </div>
+
+                        <button
+                            class="text-button"
+                            data-section-link="history">
+                            History →
+                        </button>
+
+                    </div>
+
+
+                    <div class="activity-list">
+
+                        <div class="activity">
+                            <div class="activity-dot"></div>
+
+                            <div>
+                                <strong>Day mode activated</strong>
+                                <small>Today · 10:00</small>
+                            </div>
+
+                            <span>75%</span>
+                        </div>
+
+
+                        <div class="activity">
+                            <div class="activity-dot"></div>
+
+                            <div>
+                                <strong>Morning mode activated</strong>
+                                <small>Today · 06:00</small>
+                            </div>
+
+                            <span>60%</span>
+                        </div>
+
+
+                        <div class="activity">
+                            <div class="activity-dot"></div>
+
+                            <div>
+                                <strong>Schedule updated</strong>
+                                <small>Yesterday · 18:21</small>
+                            </div>
+
+                            <span>—</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SCHEDULES ================= -->
+
+        <section id="schedules" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">FR-01</span>
+                    <h1>Daily Schedules</h1>
+                    <p>Manage light schedules based on time.</p>
+                </div>
+
+                <button class="primary-button" id="addSchedule">
+                    + Add Schedule
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="eyebrow">24 HOUR VIEW</span>
+                        <h2>Today's light schedule</h2>
+                    </div>
+
+                    <div class="filter">
+                        <select id="scheduleFilter">
+                            <option>All periods</option>
+                            <option>Morning</option>
+                            <option>Day</option>
+                            <option>Night</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="timeline">
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-time">06:00</span>
+
+                        <div class="timeline-point morning"></div>
+
+                        <div class="timeline-card">
+                            <span class="tag morning-tag">MORNING</span>
+                            <h3>Morning Light</h3>
+                            <p>Brightness adjustment begins.</p>
+
+                            <strong>60%</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item active">
+                        <span class="timeline-time">10:00</span>
+
+                        <div class="timeline-point day"></div>
+
+                        <div class="timeline-card">
+                            <span class="tag day-tag">DAY</span>
+                            <h3>Day Light</h3>
+                            <p>Bright daytime lighting.</p>
+
+                            <strong>75%</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item">
+                        <span class="timeline-time">18:00</span>
+
+                        <div class="timeline-point night"></div>
+
+                        <div class="timeline-card">
+                            <span class="tag night-tag">NIGHT</span>
+                            <h3>Night Light</h3>
+                            <p>Brightness decreases for night.</p>
+
+                            <strong>25%</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BRIGHTNESS ================= -->
+
+        <section id="brightness" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">FR-02</span>
+                    <h1>Brightness Rhythm</h1>
+                    <p>Automatic brightness for morning, day and night.</p>
+                </div>
+
+            </div>
+
+
+            <div class="brightness-layout">
+
+                <div class="panel brightness-orb-panel">
+
+                    <span class="eyebrow">CURRENT BRIGHTNESS</span>
+
+                    <div class="orb-wrapper">
+
+                        <div class="orb-glow"></div>
+
+                        <div class="orb">
+                            <span id="orbValue">75</span>
+                            <small>%</small>
+                        </div>
+
+                    </div>
+
+                    <h2 id="brightnessModeTitle">Day</h2>
+
+                    <p>
+                        Current automatic brightness level
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="eyebrow">AUTOMATIC MODES</span>
+                            <h2>Brightness levels</h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="brightness-modes">
+
+                        <div class="brightness-mode morning-mode">
+
+                            <div class="mode-symbol">☼</div>
+
+                            <div class="mode-info">
+                                <strong>Morning</strong>
+                                <span>06:00 — 10:00</span>
+                            </div>
+
+                            <div class="mode-level">
+                                60%
+                            </div>
+
+                        </div>
+
+
+                        <div class="brightness-mode day-mode selected">
+
+                            <div class="mode-symbol">●</div>
+
+                            <div class="mode-info">
+                                <strong>Day</strong>
+                                <span>10:00 — 18:00</span>
+                            </div>
+
+                            <div class="mode-level">
+                                75%
+                            </div>
+
+                        </div>
+
+
+                        <div class="brightness-mode night-mode">
+
+                            <div class="mode-symbol">☾</div>
+
+                            <div class="mode-info">
+                                <strong>Night</strong>
+                                <span>18:00 — 22:00</span>
+                            </div>
+
+                            <div class="mode-level">
+                                25%
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ROUTINES ================= -->
+
+        <section id="routines" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">FR-03</span>
+                    <h1>Light Routines</h1>
+                    <p>Create and edit your light routines.</p>
+                </div>
+
+                <button class="primary-button" id="createRoutine">
+                    + Create Routine
+                </button>
+
+            </div>
+
+
+            <div class="routine-grid">
+
+                <div class="routine-card">
+
+                    <div class="routine-number">01</div>
+
+                    <span class="tag morning-tag">
+                        MORNING
+                    </span>
+
+                    <h2>Morning Rhythm</h2>
+
+                    <p>
+                        Start the day with the scheduled morning light.
+                    </p>
+
+                    <div class="routine-footer">
+                        <span>06:00</span>
+                        <strong>60%</strong>
+                    </div>
+
+                    <button class="edit-button">
+                        Edit routine
+                    </button>
+
+                </div>
+
+
+                <div class="routine-card featured">
+
+                    <div class="routine-number">02</div>
+
+                    <span class="tag day-tag">
+                        DAY
+                    </span>
+
+                    <h2>Day Rhythm</h2>
+
+                    <p>
+                        Maintain the scheduled daytime brightness.
+                    </p>
+
+                    <div class="routine-footer">
+                        <span>10:00</span>
+                        <strong>75%</strong>
+                    </div>
+
+                    <button class="edit-button">
+                        Edit routine
+                    </button>
+
+                </div>
+
+
+                <div class="routine-card">
+
+                    <div class="routine-number">03</div>
+
+                    <span class="tag night-tag">
+                        NIGHT
+                    </span>
+
+                    <h2>Night Rhythm</h2>
+
+                    <p>
+                        Reduce brightness according to the night schedule.
+                    </p>
+
+                    <div class="routine-footer">
+                        <span>18:00</span>
+                        <strong>25%</strong>
+                    </div>
+
+                    <button class="edit-button">
+                        Edit routine
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STORAGE ================= -->
+
+        <section id="storage" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">FR-04</span>
+                    <h1>Settings & Storage</h1>
+                    <p>View stored settings and schedules.</p>
+                </div>
+
+            </div>
+
+
+            <div class="storage-grid">
+
+                <div class="panel storage-card">
+
+                    <div class="storage-icon">
+                        ▣
+                    </div>
+
+                    <span class="eyebrow">DATABASE</span>
+
+                    <h2>SQLite Storage</h2>
+
+                    <p>
+                        User settings and light schedules are stored
+                        using the application's SQLite database.
+                    </p>
+
+                    <div class="storage-status">
+                        <span class="status-dot"></span>
+                        Storage ready
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">SAVED DATA</span>
+                            <h2>Stored schedules</h2>
+                        </div>
+                    </div>
+
+
+                    <div class="data-table">
+
+                        <div class="table-head">
+                            <span>TYPE</span>
+                            <span>NAME</span>
+                            <span>TIME</span>
+                            <span>VALUE</span>
+                        </div>
+
+                        <div class="table-row">
+                            <span>Schedule</span>
+                            <strong>Morning</strong>
+                            <span>06:00</span>
+                            <strong>60%</strong>
+                        </div>
+
+                        <div class="table-row">
+                            <span>Schedule</span>
+                            <strong>Day</strong>
+                            <span>10:00</span>
+                            <strong>75%</strong>
+                        </div>
+
+                        <div class="table-row">
+                            <span>Schedule</span>
+                            <strong>Night</strong>
+                            <span>18:00</span>
+                            <strong>25%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HISTORY ================= -->
+
+        <section id="history" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">FR-06</span>
+                    <h1>Light History</h1>
+                    <p>Recorded light changes and user activity.</p>
+                </div>
+
+                <div class="filter">
+                    <select id="historyFilter">
+
+                        <option>All activity</option>
+                        <option>Light changes</option>
+                        <option>User activity</option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="eyebrow">ACTIVITY LOG</span>
+                        <h2>Recent history</h2>
+                    </div>
+
+                    <span class="history-total">
+                        06 records
+                    </span>
+
+                </div>
+
+
+                <div class="history-table">
+
+                    <div class="history-head">
+                        <span>TIME</span>
+                        <span>EVENT</span>
+                        <span>TYPE</span>
+                        <span>VALUE</span>
+                    </div>
+
+
+                    <div class="history-row">
+
+                        <span>Today · 10:00</span>
+
+                        <strong>
+                            Day brightness activated
+                        </strong>
+
+                        <span class="history-tag light">
+                            LIGHT
+                        </span>
+
+                        <strong>75%</strong>
+
+                    </div>
+
+
+                    <div class="history-row">
+
+                        <span>Today · 06:00</span>
+
+                        <strong>
+                            Morning brightness activated
+                        </strong>
+
+                        <span class="history-tag light">
+                            LIGHT
+                        </span>
+
+                        <strong>60%</strong>
+
+                    </div>
+
+
+                    <div class="history-row">
+
+                        <span>Yesterday · 18:21</span>
+
+                        <strong>
+                            Night routine updated
+                        </strong>
+
+                        <span class="history-tag user">
+                            USER
+                        </span>
+
+                        <strong>25%</strong>
+
+                    </div>
+
+
+                    <div class="history-row">
+
+                        <span>Yesterday · 10:02</span>
+
+                        <strong>
+                            Day routine updated
+                        </strong>
+
+                        <span class="history-tag user">
+                            USER
+                        </span>
+
+                        <strong>75%</strong>
+
+                    </div>
+
+
+                    <div class="history-row">
+
+                        <span>Sep 01 · 18:00</span>
+
+                        <strong>
+                            Night brightness activated
+                        </strong>
+
+                        <span class="history-tag light">
+                            LIGHT
+                        </span>
+
+                        <strong>25%</strong>
+
+                    </div>
+
+
+                    <div class="history-row">
+
+                        <span>Sep 01 · 06:00</span>
+
+                        <strong>
+                            Morning brightness activated
+                        </strong>
+
+                        <span class="history-tag light">
+                            LIGHT
+                        </span>
+
+                        <strong>60%</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+            <span>LIGHT RHYTHM MANAGEMENT SYSTEM</span>
+            <span>PYTHON · SQLITE · FRONTEND</span>
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <div>
+        <strong id="toastTitle">Updated</strong>
+        <small id="toastMessage">Action completed.</small>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
