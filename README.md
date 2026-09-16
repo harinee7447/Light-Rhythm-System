@@ -88,8 +88,6 @@ python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 Open your web browser and navigate to:
 ```
 ttp://127.0.0.1:8000/
-```
-
 ### 5. Interactive Swagger API Docs
 FastAPI provides interactive API documentation at:
 ```
