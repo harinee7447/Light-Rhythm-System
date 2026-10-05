@@ -1,0 +1,5 @@
+{
+  "name": "Light Rhythm Management System",
+  "description": "Circadian lighting and routine management system with automated brightness control, schedule tracking, and activity logging.",
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
