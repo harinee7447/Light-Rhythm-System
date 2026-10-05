@@ -3013,3 +3013,234 @@ body.sidebar-locked {
         font-size: 0.8rem;
     }
 }
+
+/* =====================================================
+   PROGRESSIVE WEB APP (PWA) STYLES
+   ===================================================== */
+
+/* Offline Status Banner */
+.offline-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(90deg, rgba(246, 166, 91, 0.16), rgba(246, 166, 91, 0.08));
+    border-bottom: 1px solid rgba(246, 166, 91, 0.35);
+    padding: 10px 24px;
+    color: #fce7d2;
+    font-size: 0.86rem;
+    position: sticky;
+    top: 0;
+    z-index: 105;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.offline-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.offline-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f6a65b;
+    box-shadow: 0 0 8px #f6a65b;
+    animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+.offline-badge {
+    font-family: "DM Mono", monospace;
+    font-size: 0.72rem;
+    background: rgba(246, 166, 91, 0.22);
+    border: 1px solid rgba(246, 166, 91, 0.4);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #f6a65b;
+    letter-spacing: 0.5px;
+}
+
+/* Top Header Install Button */
+.top-install-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(215, 243, 107, 0.12);
+    border: 1px solid rgba(215, 243, 107, 0.3);
+    color: var(--lime);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    transition: var(--transition);
+}
+
+.top-install-btn:hover {
+    background: rgba(215, 243, 107, 0.22);
+    border-color: var(--lime);
+    box-shadow: 0 0 14px var(--lime-glow);
+    transform: translateY(-1px);
+}
+
+.top-install-icon {
+    font-size: 0.9rem;
+    animation: bounceDown 2s infinite ease-in-out;
+}
+
+/* Sidebar Install Button */
+.pwa-install-sidebar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, rgba(215, 243, 107, 0.15), rgba(127, 213, 255, 0.1));
+    border: 1px solid rgba(215, 243, 107, 0.35);
+    border-radius: var(--radius-sm);
+    color: var(--lime);
+    font-size: 0.84rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.pwa-install-sidebar-btn:hover {
+    background: linear-gradient(135deg, rgba(215, 243, 107, 0.25), rgba(127, 213, 255, 0.2));
+    border-color: var(--lime);
+    box-shadow: 0 4px 16px var(--lime-glow);
+    transform: translateY(-1px);
+}
+
+.pwa-btn-icon {
+    font-size: 1rem;
+}
+
+/* Mobile Header Install Button */
+.mobile-install-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(215, 243, 107, 0.14);
+    border: 1px solid rgba(215, 243, 107, 0.35);
+    color: var(--lime);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.mobile-install-btn:hover {
+    background: rgba(215, 243, 107, 0.25);
+}
+
+/* iOS Installation Guidance Modal */
+.ios-install-body {
+    padding: 10px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.ios-app-preview {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface-2);
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.ios-preview-icon {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.ios-app-preview strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.ios-app-preview small {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+}
+
+.ios-step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ios-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--text);
+}
+
+.step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    color: var(--lime);
+    font-family: "DM Mono", monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.share-icon-preview,
+.add-icon-preview {
+    display: inline-block;
+    background: var(--surface-3);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+    margin: 0 2px;
+}
+
+/* Standalone PWA Display Mode Enhancements */
+@media all and (display-mode: standalone) {
+    body {
+        /* Support safe area insets for iOS notches and Android status bars */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        user-select: none;
+    }
+
+    /* Hide install buttons when already running in standalone mode */
+    #topInstallBtn,
+    #sidebarInstallBtn,
+    #mobileInstallBtn {
+        display: none !important;
+    }
+
+    .top-header {
+        top: env(safe-area-inset-top);
+    }
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}

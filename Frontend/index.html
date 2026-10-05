@@ -7,6 +7,19 @@
     <meta name="description" content="Circadian lighting and routine management system with automated brightness control, schedule tracking, and activity logging.">
     <meta property="og:title" content="Light Rhythm Management System">
     <meta property="og:description" content="Circadian lighting and routine management system with automated brightness control, schedule tracking, and activity logging.">
+    
+    <!-- Progressive Web App (PWA) Standards -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#090a09">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Light Rhythm">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png">
+    <link rel="shortcut icon" href="/favicon.png">
+
     <link rel="stylesheet" href="/static/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,6 +91,10 @@
         </nav>
 
         <div class="sidebar-bottom">
+            <button class="pwa-install-sidebar-btn" id="sidebarInstallBtn" style="display: none;">
+                <span class="pwa-btn-icon">⬇</span>
+                <span class="pwa-btn-label">Install App</span>
+            </button>
             <div class="system-status" id="systemStatusWidget">
                 <div class="status-dot"></div>
                 <div>
@@ -106,6 +123,10 @@
             </div>
         </div>
         <div class="mobile-header-actions">
+            <button id="mobileInstallBtn" class="mobile-install-btn" style="display: none;" title="Install Light Rhythm PWA">
+                <span>⬇</span>
+                <small>Install</small>
+            </button>
             <div class="live-dot" title="Live System"></div>
             <button id="menuButton" class="menu-button" aria-label="Toggle navigation">☰</button>
         </div>
@@ -113,6 +134,15 @@
 
     <!-- MAIN CONTENT -->
     <main class="main">
+
+        <!-- OFFLINE STATUS BANNER -->
+        <div id="offlineBanner" class="offline-banner" style="display: none;">
+            <div class="offline-banner-content">
+                <span class="offline-dot"></span>
+                <span><strong>Offline Mode</strong> &mdash; Circadian schedules are operating from local cache.</span>
+            </div>
+            <span class="offline-badge">OFFLINE CACHED</span>
+        </div>
 
         <!-- TOP BAR -->
         <header class="top-header">
@@ -122,6 +152,11 @@
             </div>
 
             <div class="header-right">
+                <button id="topInstallBtn" class="top-install-btn" style="display: none;">
+                    <span class="top-install-icon">⬇</span>
+                    <span>Install App</span>
+                </button>
+
                 <div class="live-time">
                     <span class="live-dot"></span>
                     <span id="currentTime">00:00:00</span>
@@ -948,6 +983,42 @@
     <div>
         <strong id="toastTitle">Updated</strong>
         <small id="toastMessage">Action completed successfully.</small>
+    </div>
+</div>
+
+<!-- 5. PWA iOS INSTALLATION GUIDE MODAL -->
+<div class="modal-overlay" id="iosInstallModal">
+    <div class="modal-card modal-small">
+        <div class="modal-header">
+            <h3>Install on iPhone / iPad</h3>
+            <button class="modal-close-btn" id="closeIosInstallModal">×</button>
+        </div>
+        <div class="ios-install-body">
+            <div class="ios-app-preview">
+                <img src="/pwa-192x192.png" alt="Light Rhythm" class="ios-preview-icon" width="56" height="56">
+                <div>
+                    <strong>Light Rhythm</strong>
+                    <small>Circadian Lighting &amp; Management</small>
+                </div>
+            </div>
+            <div class="ios-step-list">
+                <div class="ios-step">
+                    <span class="step-num">1</span>
+                    <div>Tap the <strong>Share</strong> button <span class="share-icon-preview">⎋</span> in Safari's bottom toolbar.</div>
+                </div>
+                <div class="ios-step">
+                    <span class="step-num">2</span>
+                    <div>Scroll down and tap <strong>Add to Home Screen</strong> <span class="add-icon-preview">⊞</span>.</div>
+                </div>
+                <div class="ios-step">
+                    <span class="step-num">3</span>
+                    <div>Tap <strong>Add</strong> in the top-right corner to launch in standalone mode.</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="primary-button full-width" id="dismissIosModalBtn">Got it</button>
+        </div>
     </div>
 </div>
 

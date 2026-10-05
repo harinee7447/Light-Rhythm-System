@@ -1313,3 +1313,142 @@ function renderActionProposal(action) {
         });
     }
 }
+
+/* =====================================================
+   PROGRESSIVE WEB APP (PWA) INTEGRATION
+   Service Worker, In-App Install Prompt & Offline Detection
+   Compliant with PWA Guidelines
+   ===================================================== */
+
+(function initPWA() {
+    // 1. Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                .then((registration) => {
+                    console.log('[PWA] Service Worker registered with scope:', registration.scope);
+
+                    // Check for updates
+                    registration.addEventListener('updatefound', () => {
+                        const installingWorker = registration.installing;
+                        if (installingWorker) {
+                            installingWorker.addEventListener('statechange', () => {
+                                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('[PWA] New version cached and ready.');
+                                }
+                            });
+                        }
+                    });
+                })
+                .catch((err) => {
+                    console.warn('[PWA] Service Worker registration notice:', err);
+                });
+        });
+    }
+
+    // 2. Installability Detection & In-App Install Flow
+    let deferredPrompt = null;
+    const topInstallBtn = document.getElementById("topInstallBtn");
+    const sidebarInstallBtn = document.getElementById("sidebarInstallBtn");
+    const mobileInstallBtn = document.getElementById("mobileInstallBtn");
+    const iosInstallModal = document.getElementById("iosInstallModal");
+    const closeIosInstallModal = document.getElementById("closeIosInstallModal");
+    const dismissIosModalBtn = document.getElementById("dismissIosModalBtn");
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                         (window.navigator && window.navigator.standalone === true);
+
+    const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+
+    function showInstallButtons() {
+        if (isStandalone) return;
+        if (topInstallBtn) topInstallBtn.style.display = "inline-flex";
+        if (sidebarInstallBtn) sidebarInstallBtn.style.display = "flex";
+        if (mobileInstallBtn) mobileInstallBtn.style.display = "inline-flex";
+    }
+
+    function hideInstallButtons() {
+        if (topInstallBtn) topInstallBtn.style.display = "none";
+        if (sidebarInstallBtn) sidebarInstallBtn.style.display = "none";
+        if (mobileInstallBtn) mobileInstallBtn.style.display = "none";
+    }
+
+    // Capture browser beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallButtons();
+        console.log('[PWA] beforeinstallprompt event captured.');
+    });
+
+    // On iOS Safari, beforeinstallprompt is not fired by WebKit; show install action if not standalone
+    if (isIOS && !isStandalone) {
+        showInstallButtons();
+    }
+
+    async function triggerInstallFlow() {
+        if (isIOS) {
+            if (iosInstallModal) iosInstallModal.classList.add("show");
+            return;
+        }
+
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('[PWA] User choice outcome:', outcome);
+            if (outcome === 'accepted') {
+                hideInstallButtons();
+                showToast("Installing", "Adding Light Rhythm to your device...");
+            }
+            deferredPrompt = null;
+        } else {
+            showToast("Install App", "Tap your browser menu (⋮) and select 'Install app' or 'Add to Home screen'.");
+        }
+    }
+
+    [topInstallBtn, sidebarInstallBtn, mobileInstallBtn].forEach((btn) => {
+        if (btn) {
+            btn.addEventListener("click", triggerInstallFlow);
+        }
+    });
+
+    if (closeIosInstallModal) {
+        closeIosInstallModal.addEventListener("click", () => {
+            if (iosInstallModal) iosInstallModal.classList.remove("show");
+        });
+    }
+
+    if (dismissIosModalBtn) {
+        dismissIosModalBtn.addEventListener("click", () => {
+            if (iosInstallModal) iosInstallModal.classList.remove("show");
+        });
+    }
+
+    window.addEventListener('appinstalled', () => {
+        hideInstallButtons();
+        showToast("Installed Successfully", "Light Rhythm is now installed as an application!", false);
+        console.log('[PWA] App installed successfully.');
+    });
+
+    // 3. Online / Offline Connectivity Detection
+    const offlineBanner = document.getElementById("offlineBanner");
+
+    function updateOnlineStatus() {
+        const isOnline = navigator.onLine;
+        if (!isOnline) {
+            if (offlineBanner) offlineBanner.style.display = "flex";
+            showToast("Offline Mode", "Running on local circadian cache.", true);
+        } else {
+            if (offlineBanner) offlineBanner.style.display = "none";
+            showToast("Online", "Connection restored. Syncing with server.");
+            if (typeof refreshDashboard === "function") refreshDashboard();
+        }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    if (!navigator.onLine && offlineBanner) {
+        offlineBanner.style.display = "flex";
+    }
+})();

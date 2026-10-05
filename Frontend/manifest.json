@@ -1,0 +1,70 @@
+{
+  "id": "/",
+  "name": "Light Rhythm Management System",
+  "short_name": "Light Rhythm",
+  "description": "Circadian lighting and routine management system with automated brightness control, schedule tracking, and activity logging.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#090a09",
+  "background_color": "#090a09",
+  "lang": "en",
+  "categories": ["lifestyle", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Circadian Dashboard",
+      "short_name": "Dashboard",
+      "description": "View live circadian status and current brightness",
+      "url": "/#dashboard",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Light Schedules",
+      "short_name": "Schedules",
+      "description": "Configure automated circadian schedules",
+      "url": "/#schedules",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Lighting Routines",
+      "short_name": "Routines",
+      "description": "Quickly activate custom light presets",
+      "url": "/#routines",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Assistant",
+      "short_name": "AI Advisor",
+      "description": "Ask circadian intelligence for guidance",
+      "url": "/#ai-assistant",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

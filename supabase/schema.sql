@@ -104,17 +104,23 @@ ALTER TABLE public.routines ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.activity_history ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.system_settings ENABLE ROW LEVEL SECURITY;
 
--- Allow read & write for application backend service/anon roles
-CREATE POLICY "Allow service and anon read on schedules" ON public.schedules FOR SELECT USING (true);
-CREATE POLICY "Allow service and anon write on schedules" ON public.schedules FOR ALL USING (true);
+-- Allow full access for anon, authenticated, and service_role
+DROP POLICY IF EXISTS "Allow full access on schedules" ON public.schedules;
+CREATE POLICY "Allow full access on schedules" ON public.schedules
+    FOR ALL TO anon, authenticated, service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "Allow service and anon read on routines" ON public.routines FOR SELECT USING (true);
-CREATE POLICY "Allow service and anon write on routines" ON public.routines FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access on routines" ON public.routines;
+CREATE POLICY "Allow full access on routines" ON public.routines
+    FOR ALL TO anon, authenticated, service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "Allow service and anon read on activity_history" ON public.activity_history FOR SELECT USING (true);
-CREATE POLICY "Allow service and anon write on activity_history" ON public.activity_history FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access on activity_history" ON public.activity_history;
+CREATE POLICY "Allow full access on activity_history" ON public.activity_history
+    FOR ALL TO anon, authenticated, service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "Allow service and anon read on system_settings" ON public.system_settings FOR SELECT USING (true);
-CREATE POLICY "Allow service and anon write on system_settings" ON public.system_settings FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access on system_settings" ON public.system_settings;
+CREATE POLICY "Allow full access on system_settings" ON public.system_settings
+    FOR ALL TO anon, authenticated, service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "Allow service and anon access on users" ON public.users FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access on users" ON public.users;
+CREATE POLICY "Allow full access on users" ON public.users
+    FOR ALL TO anon, authenticated, service_role USING (true) WITH CHECK (true);

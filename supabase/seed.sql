@@ -9,7 +9,7 @@ INSERT INTO public.users (id, username, password_hash, role, created_at)
 VALUES (
     1,
     'admin',
-    '$2a$10$3zM9EsqVfXm9jVbI3B3Yq.rX7iJvUa7BfxI7bV5W8o3M9k0gN1yWy',
+    '$2a$10$PlWyiv5rqyROPwZ3tXWxLOE3XmVjgoqPacjOOw9yNiV7Sb8lxP7.W',
     'admin',
     NOW()
 )

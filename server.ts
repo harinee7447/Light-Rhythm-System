@@ -922,6 +922,20 @@ app.post('/api/ai/apply-action', async (req: Request, res: Response) => {
 
 // --- Static Frontend Serving ---
 const frontendDir = path.join(process.cwd(), 'Frontend');
+
+// PWA Service Worker & Manifest explicitly served with optimal headers
+app.get('/sw.js', (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.setHeader('Service-Worker-Allowed', '/');
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.sendFile(path.join(frontendDir, 'sw.js'));
+});
+
+app.get('/manifest.json', (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/manifest+json');
+  res.sendFile(path.join(frontendDir, 'manifest.json'));
+});
+
 app.use('/static', express.static(frontendDir));
 app.use(express.static(frontendDir));
 
