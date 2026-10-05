@@ -104,6 +104,22 @@ const pages = document.querySelectorAll(".page");
 const breadcrumbText = document.getElementById("breadcrumbText");
 const sidebar = document.getElementById("sidebar");
 const menuButton = document.getElementById("menuButton");
+const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
+const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+
+function openSidebar() {
+    if (sidebar) sidebar.classList.add("open");
+    if (sidebarBackdrop) sidebarBackdrop.classList.add("active");
+    document.body.classList.add("sidebar-locked");
+    if (menuButton) menuButton.setAttribute("aria-expanded", "true");
+}
+
+function closeSidebar() {
+    if (sidebar) sidebar.classList.remove("open");
+    if (sidebarBackdrop) sidebarBackdrop.classList.remove("active");
+    document.body.classList.remove("sidebar-locked");
+    if (menuButton) menuButton.setAttribute("aria-expanded", "false");
+}
 
 function showPage(pageId) {
     pages.forEach(p => p.classList.remove("active-page"));
@@ -124,9 +140,7 @@ function showPage(pageId) {
         breadcrumbText.textContent = pageId.toUpperCase();
     }
 
-    if (sidebar) {
-        sidebar.classList.remove("open");
-    }
+    closeSidebar();
 
     // Refresh page data when visited
     if (pageId === "dashboard") refreshDashboard();
@@ -136,6 +150,7 @@ function showPage(pageId) {
     else if (pageId === "storage") loadStorageMetrics();
     else if (pageId === "history") loadHistory();
     else if (pageId === "reports") loadReports();
+    else if (pageId === "ai-assistant") loadAiAssistantPage();
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -149,14 +164,32 @@ document.querySelectorAll("[data-section-link]").forEach(elem => {
 });
 
 if (menuButton) {
-    menuButton.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
+    menuButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (sidebar && sidebar.classList.contains("open")) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+}
+
+if (sidebarCloseBtn) {
+    sidebarCloseBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeSidebar();
+    });
+}
+
+if (sidebarBackdrop) {
+    sidebarBackdrop.addEventListener("click", () => {
+        closeSidebar();
     });
 }
 
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-        if (sidebar) sidebar.classList.remove("open");
+        closeSidebar();
         closeAllModals();
     }
 });
@@ -416,6 +449,9 @@ async function refreshDashboard() {
                 `).join("");
             }
         }
+
+        // Load AI Insights for Dashboard
+        loadAiDashboardInsights();
 
     } catch (err) {
         console.error("Dashboard refresh error:", err);
@@ -1072,4 +1108,208 @@ document.addEventListener("DOMContentLoaded", () => {
             refreshDashboard();
         }
     }, 8000);
+
+    initAiAssistant();
 });
+
+// =====================================================
+// AI LIGHT RHYTHM ASSISTANT ENGINE (FRONTEND)
+// =====================================================
+
+let currentAiAction = null;
+
+async function loadAiDashboardInsights() {
+    try {
+        const data = await apiFetch("/api/ai/dashboard-insights");
+        const headlineEl = document.getElementById("aiInsightHeadline");
+        const insightEl = document.getElementById("aiInsightText");
+        const recoEl = document.getElementById("aiRecommendationText");
+        const alertEl = document.getElementById("aiAlertText");
+        const scoreValEl = document.getElementById("aiCircadianScoreVal");
+        const scoreLabelEl = document.getElementById("aiScoreLabel");
+
+        if (headlineEl && data.headline) headlineEl.textContent = data.headline;
+        if (insightEl && data.insight) insightEl.textContent = data.insight;
+        if (recoEl && data.optimization_tip) recoEl.textContent = data.optimization_tip;
+        if (alertEl && data.smart_alert) alertEl.textContent = data.smart_alert;
+
+        if (scoreValEl && data.circadian_score !== undefined) {
+            scoreValEl.textContent = data.circadian_score;
+        }
+        if (scoreLabelEl && data.score_status) {
+            scoreLabelEl.textContent = data.score_status;
+        }
+    } catch (err) {
+        console.warn("AI Dashboard Insights error:", err);
+    }
+}
+
+async function loadAiAssistantPage() {
+    loadAiDashboardInsights();
+    const input = document.getElementById("aiUserInput");
+    if (input) input.focus();
+}
+
+function initAiAssistant() {
+    const refreshInsightsBtn = document.getElementById("aiRefreshInsightsBtn");
+    if (refreshInsightsBtn) {
+        refreshInsightsBtn.addEventListener("click", () => {
+            loadAiDashboardInsights();
+            showToast("AI Insights Refreshed", "Circadian analysis updated.");
+        });
+    }
+
+    // Quick Prompt Chips
+    document.querySelectorAll(".ai-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+            const promptText = chip.dataset.aiPrompt;
+            const input = document.getElementById("aiUserInput");
+            if (input && promptText) {
+                input.value = promptText;
+                submitAiPrompt(promptText);
+            }
+        });
+    });
+
+    // Chat Form Submission
+    const chatForm = document.getElementById("aiChatForm");
+    if (chatForm) {
+        chatForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const input = document.getElementById("aiUserInput");
+            const message = input.value.trim();
+            if (message) {
+                input.value = "";
+                submitAiPrompt(message);
+            }
+        });
+    }
+}
+
+async function submitAiPrompt(message) {
+    const messagesContainer = document.getElementById("aiMessagesContainer");
+    const typingIndicator = document.getElementById("aiTypingIndicator");
+    const sendBtn = document.getElementById("aiSendBtn");
+
+    // Append User Message Bubble
+    appendChatMessage("user", message);
+
+    if (typingIndicator) typingIndicator.classList.remove("hidden");
+    if (sendBtn) sendBtn.disabled = true;
+    if (messagesContainer) messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    try {
+        const response = await apiFetch("/api/ai/chat", {
+            method: "POST",
+            body: JSON.stringify({ message })
+        });
+
+        if (typingIndicator) typingIndicator.classList.add("hidden");
+        if (sendBtn) sendBtn.disabled = false;
+
+        // Append Assistant Response
+        appendChatMessage("assistant", response.reply);
+
+        // If an action was proposed by the AI, render the proposal card
+        if (response.action) {
+            renderActionProposal(response.action);
+        }
+
+    } catch (err) {
+        if (typingIndicator) typingIndicator.classList.add("hidden");
+        if (sendBtn) sendBtn.disabled = false;
+        appendChatMessage("assistant", `I encountered an issue processing that circadian request: ${err.message}. Please try again.`);
+        showToast("AI Request Failed", err.message, true);
+    }
+}
+
+function appendChatMessage(role, text) {
+    const container = document.getElementById("aiMessagesContainer");
+    if (!container) return;
+
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `ai-msg ${role}`;
+
+    // Convert markdown bold and lists cleanly
+    let formattedText = escapeHtml(text);
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    formattedText = formattedText.replace(/\n\n/g, '</p><p>');
+    formattedText = formattedText.replace(/\n- /g, '<br>• ');
+    formattedText = formattedText.replace(/\n/g, '<br>');
+
+    msgDiv.innerHTML = `<div class="msg-bubble"><p>${formattedText}</p></div>`;
+    container.appendChild(msgDiv);
+    container.scrollTop = container.scrollHeight;
+}
+
+function renderActionProposal(action) {
+    currentAiAction = action;
+    const box = document.getElementById("aiActionProposalBox");
+    if (!box) return;
+
+    let detailsHtml = "";
+    if (action.type === "create_schedule") {
+        detailsHtml = `
+            <strong>Schedule Name:</strong> ${escapeHtml(action.data.name)}<br>
+            <strong>Period:</strong> ${action.data.period}<br>
+            <strong>Time Window:</strong> ${action.data.start_time} — ${action.data.end_time}<br>
+            <strong>Brightness:</strong> ${action.data.brightness_pct}%
+        `;
+    } else if (action.type === "create_routine") {
+        detailsHtml = `
+            <strong>Routine Name:</strong> ${escapeHtml(action.data.name)}<br>
+            <strong>Period:</strong> ${action.data.period}<br>
+            <strong>Target Time:</strong> ${action.data.time}<br>
+            <strong>Brightness:</strong> ${action.data.brightness_pct}%<br>
+            <strong>Description:</strong> ${escapeHtml(action.data.description || 'Custom routine')}
+        `;
+    } else if (action.type === "set_brightness") {
+        detailsHtml = `
+            <strong>Mode:</strong> ${action.data.mode}<br>
+            <strong>Target Brightness:</strong> ${action.data.brightness_pct}%
+        `;
+    }
+
+    box.className = "ai-proposal-card";
+    box.innerHTML = `
+        <h4>⚡ ${escapeHtml(action.title)}</h4>
+        <div class="ai-proposal-meta">
+            ${detailsHtml}
+        </div>
+        <button class="primary-button full-width" id="executeAiActionBtn">Apply to System Now ✓</button>
+    `;
+
+    const executeBtn = document.getElementById("executeAiActionBtn");
+    if (executeBtn) {
+        executeBtn.addEventListener("click", async () => {
+            try {
+                executeBtn.disabled = true;
+                executeBtn.textContent = "Applying...";
+                const res = await apiFetch("/api/ai/apply-action", {
+                    method: "POST",
+                    body: JSON.stringify({ action: currentAiAction })
+                });
+
+                showToast("Action Applied", res.message || "Changes saved to database.");
+                box.className = "ai-proposal-empty";
+                box.innerHTML = `
+                    <div class="empty-icon" style="color: var(--lime);">✓</div>
+                    <p><strong>Action Applied Successfully!</strong> The new settings are active across your circadian rhythm.</p>
+                `;
+                currentAiAction = null;
+
+                // Refresh affected views
+                refreshDashboard();
+                loadSchedules();
+                loadRoutines();
+            } catch (err) {
+                showToast("Failed to Apply", err.message, true);
+                if (executeBtn) {
+                    executeBtn.disabled = false;
+                    executeBtn.textContent = "Retry Applying";
+                }
+            }
+        });
+    }
+}

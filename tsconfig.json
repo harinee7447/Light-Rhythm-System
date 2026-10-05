@@ -11,5 +11,5 @@
     "resolveJsonModule": true,
     "noEmit": true
   },
-  "include": ["server.ts"]
+  "include": ["server.ts", "src/**/*", "test-api.ts"]
 }

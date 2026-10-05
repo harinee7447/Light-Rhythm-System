@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "tsx server.ts",
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "test": "tsx test-api.ts"
   },
   "dependencies": {
+    "@google/genai": "^2.27.0",
+    "@supabase/supabase-js": "^2.117.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",

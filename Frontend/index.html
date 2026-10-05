@@ -18,16 +18,19 @@
 
     <!-- SIDEBAR NAVIGATION -->
     <aside class="sidebar" id="sidebar">
-        <div class="brand">
-            <div class="brand-mark">
-                <span></span>
-                <span></span>
-                <span></span>
+        <div class="sidebar-header-row">
+            <div class="brand">
+                <div class="brand-mark">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div>
+                    <h2>LIGHT</h2>
+                    <small>RHYTHM</small>
+                </div>
             </div>
-            <div>
-                <h2>LIGHT</h2>
-                <small>RHYTHM</small>
-            </div>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">✕</button>
         </div>
 
         <div class="side-label">CONTROL</div>
@@ -67,6 +70,11 @@
                 <span class="nav-icon">▤</span>
                 <span>Reports</span>
             </button>
+
+            <button class="nav-item ai-nav-item" data-section="ai-assistant">
+                <span class="nav-icon">✧</span>
+                <span>AI Assistant</span>
+            </button>
         </nav>
 
         <div class="sidebar-bottom">
@@ -82,6 +90,9 @@
             </div>
         </div>
     </aside>
+
+    <!-- MOBILE SIDEBAR BACKDROP -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <!-- MOBILE HEADER -->
     <header class="mobile-header">
@@ -289,6 +300,43 @@
                         <span>20:00</span>
                         <span>24:00</span>
                     </div>
+                </div>
+            </div>
+
+            <!-- AI DASHBOARD INSIGHTS & SMART ALERTS -->
+            <div class="ai-dashboard-card" id="aiDashboardCard">
+                <div class="ai-card-header">
+                    <div class="ai-card-title">
+                        <span class="ai-badge">✧ AI CIRCADIAN INSIGHTS</span>
+                        <h3 id="aiInsightHeadline">Personalized Lighting Optimization</h3>
+                    </div>
+                    <button class="ai-refresh-btn" id="aiRefreshInsightsBtn" title="Refresh Insights">↺ Refresh Insights</button>
+                </div>
+                <div class="ai-card-body">
+                    <div class="ai-insight-item">
+                        <div class="ai-icon">💡</div>
+                        <div>
+                            <strong>Circadian Alignment</strong>
+                            <p id="aiInsightText">Loading rhythm analysis...</p>
+                        </div>
+                    </div>
+                    <div class="ai-insight-item">
+                        <div class="ai-icon">⚡</div>
+                        <div>
+                            <strong>Smart Routine Recommendation</strong>
+                            <p id="aiRecommendationText">Analyzing your schedules and energy balance...</p>
+                        </div>
+                    </div>
+                    <div class="ai-insight-item">
+                        <div class="ai-icon">🔔</div>
+                        <div>
+                            <strong>Smart Notification</strong>
+                            <p id="aiAlertText">Schedule consistency check active.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-card-footer">
+                    <button class="btn-chip" data-section-link="ai-assistant">Open AI Light Assistant →</button>
                 </div>
             </div>
 
@@ -529,6 +577,7 @@
                     </div>
                 </div>
 
+                <div class="table-scroll-hint">← Swipe table horizontally to view full audit log →</div>
                 <div class="history-table-container">
                     <table class="data-table" id="historyTable">
                         <thead>
@@ -621,6 +670,106 @@
                         <h3>System Activity Audit Log</h3>
                         <p>Full chronological audit log of all light transitions, user updates, and schedule triggers.</p>
                         <a href="/api/reports/export.csv?type=history" class="primary-button btn-small" download>Export History CSV</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 8. AI LIGHT RHYTHM ASSISTANT ================= -->
+        <section id="ai-assistant" class="page">
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">INTELLIGENT CIRCADIAN ENGINE</span>
+                    <h1>AI Light Rhythm Assistant</h1>
+                    <p>Chat with your circadian AI to optimize lighting schedules, generate routines, or adjust brightness using natural language.</p>
+                </div>
+                <div class="ai-engine-status">
+                    <span class="status-dot live"></span>
+                    <span>Gemini 3.8 Intelligence Active</span>
+                </div>
+            </div>
+
+            <!-- Quick Action Chips -->
+            <div class="ai-quick-actions">
+                <button class="ai-chip" data-ai-prompt="Analyze my current schedules and optimize for better sleep and focus.">⚡ Optimize Schedules</button>
+                <button class="ai-chip" data-ai-prompt="Recommend an ideal brightness level for this hour based on circadian biology.">☼ Recommend Brightness</button>
+                <button class="ai-chip" data-ai-prompt="Create a relaxing evening routine for better melatonin release at 9 PM.">☾ Generate Evening Routine</button>
+                <button class="ai-chip" data-ai-prompt="Analyze my recent activity history and give me consistency insights.">↺ Activity Insights</button>
+            </div>
+
+            <div class="ai-assistant-layout">
+                <!-- Interactive Chat Stream -->
+                <div class="ai-chat-card">
+                    <div class="ai-chat-header">
+                        <div class="ai-avatar">✧</div>
+                        <div>
+                            <strong>Light Rhythm AI</strong>
+                            <small>Context-aware with your active schedules, routines & history</small>
+                        </div>
+                    </div>
+
+                    <div class="ai-messages" id="aiMessagesContainer">
+                        <!-- Welcome Message -->
+                        <div class="ai-msg assistant">
+                            <div class="msg-bubble">
+                                <p>Hello! I am your <strong>Light Rhythm Assistant</strong>. I analyze your circadian schedules, routines, and lighting history to keep your biological clock in sync with natural daylight.</p>
+                                <p>You can try requests like:</p>
+                                <ul>
+                                    <li><em>"Set my morning light to bright at 7 AM"</em></li>
+                                    <li><em>"Create a relaxing evening routine"</em></li>
+                                    <li><em>"Recommend ideal brightness for right now"</em></li>
+                                    <li><em>"Analyze my lighting consistency"</em></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ai-typing-indicator hidden" id="aiTypingIndicator">
+                        <span></span><span></span><span></span>
+                        <small>AI Assistant is analyzing circadian rhythm...</small>
+                    </div>
+
+                    <form class="ai-input-form" id="aiChatForm">
+                        <input type="text" id="aiUserInput" class="ai-input" placeholder="Type a request (e.g. 'Set morning light to bright at 7 AM' or 'Optimize schedule')..." autocomplete="off" required>
+                        <button type="submit" class="primary-button ai-send-btn" id="aiSendBtn">
+                            <span>Send</span>
+                            <span>→</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Real-time Recommendation & Action Panel -->
+                <div class="ai-side-panel">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">CIRCADIAN OPTIMIZER</span>
+                                <h2>AI Action Proposed</h2>
+                            </div>
+                        </div>
+                        <div id="aiActionProposalBox" class="ai-proposal-empty">
+                            <div class="empty-icon">✧</div>
+                            <p>No pending action proposal. Ask the assistant to create a schedule, routine, or adjust brightness to preview and apply it here.</p>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">HEALTH & METRICS</span>
+                                <h2>Circadian Health Score</h2>
+                            </div>
+                        </div>
+                        <div class="circadian-score-box">
+                            <div class="score-circle" id="aiCircadianScoreCircle">
+                                <span class="score-num" id="aiCircadianScoreVal">90</span>
+                                <small>/ 100</small>
+                            </div>
+                            <div class="score-details">
+                                <strong id="aiScoreLabel">Optimal Circadian Alignment</strong>
+                                <p id="aiScoreDetails">Morning, Day, and Night time slots align with natural sun transitions.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
